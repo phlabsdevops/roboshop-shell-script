@@ -29,6 +29,6 @@ else
 echo -e "$G You are root user $N"
 fi
 
-cp monog.repo vim /etc/yum.repos.d/mongo.repo &>> $LOG_FILE
+cp mongo.repo vim /etc/yum.repos.d/mongo.repo &>> $LOG_FILE
 
 VALLIDATE $? "Copy MongoDB Repo"
