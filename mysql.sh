@@ -53,5 +53,5 @@ mysql_secure_installation --set-root-pass RoboShop@1 &>> $LOG_FILE
 
 VALLIDATE $? "Setting MySql root Password"
 
-mysql -uroot -pRoboShop@1 &>> $LOG_FILE
+#mysql -uroot -pRoboShop@1 &>> $LOG_FILE
 
