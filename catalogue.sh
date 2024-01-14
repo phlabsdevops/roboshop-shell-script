@@ -95,7 +95,7 @@ dnf install mongodb-org-shell -y &>> $LOG_FILE
 
 VALLIDATE $? "Installing mongodb client"
 
-mongo --host mongodb.phlabsdevops.online </app/schema/catalogue.js
+mongo --host mongodb.phlabsdevops.online </app/schema/catalogue.js &>> $LOG_FILE
 
 VALLIDATE $? "Loading Cataloguen data into MongoDB"
 
