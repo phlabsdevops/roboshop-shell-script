@@ -1,5 +1,6 @@
 #!/bin/bash
 #  this is for comment
+
 ID=$(id -u)
 R="\e[31m"
 G="\e[32m"
@@ -56,36 +57,37 @@ mkdir -p /app &>> $LOG_FILE
 
 VALLIDATE $? "Creating App Directory" 
 
-curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOG_FILE
+curl -L -o /tmp/user.zip https://roboshop-builds.s3.amazonaws.com/user.zip
 
-VALLIDATE $? "Downloading Catalogue appilcation" 
+VALLIDATE $? "Downloading user application"
 
-cd /app &>> $LOG_FILE
+cd /app 
 
-unzip -o /tmp/catalogue.zip &>> $LOG_FILE
+unzip -o /tmp/user.zip &>> $LOG_FILE
 
-VALLIDATE $? "Unzipping Catalogue appilcation"
+VALLIDATE $? "Unzipping User appilcation"
+
+cd /app 
 
 npm install &>> $LOG_FILE
 
 VALLIDATE $? "Installing Dependencies" 
 
-#use absolute path, because catalogue.service exist there
-cp /home/centos/roboshop-shell-script/catalogue.service /etc/systemd/system/catalogue.service &>> $LOG_FILE
+cp /home/centos/roboshop-shell-script/user.service /etc/systemd/system/user.service &>> $LOG_FILE
 
-VALLIDATE $? "Copying catalogue.service file" 
+VALLIDATE $? "Copying user.service file" 
 
 systemctl daemon-reload &>> $LOG_FILE
 
-VALLIDATE $? "Catalogue daemon reload"
+VALLIDATE $? "user daemon reload"
 
-systemctl enable catalogue &>> $LOG_FILE
+systemctl enable user &>> $LOG_FILE
 
-VALLIDATE $? "Enable Catalogue"
+VALLIDATE $? "Enable user"
 
-systemctl start catalogue &>> $LOG_FILE
+systemctl start user &>> $LOG_FILE
 
-VALLIDATE $? "Start Catalogue"
+VALLIDATE $? "Start user"
 
 cp /home/centos/roboshop-shell-script/mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOG_FILE
 
@@ -95,6 +97,9 @@ dnf install mongodb-org-shell -y &>> $LOG_FILE
 
 VALLIDATE $? "Installing mongodb client"
 
-mongo --host $MONGODB_HOST </app/schema/catalogue.js &>> $LOG_FILE
+mongo --host $MONGODB_HOST </app/schema/user.js &>> $LOG_FILE
 
-VALLIDATE $? "Loading Catalogue data into MongoDB"
+VALLIDATE $? "Loading user data into MongoDB"
+
+
+
