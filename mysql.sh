@@ -35,23 +35,23 @@ VALLIDATE $? "Disable current version"
 
 cp mysql.repo /etc/yum.repos.d/mysql.repo &>> $LOG_FILE
 
-VALLIDATE $? "Copied MySql repo"
+VALLIDATE $? "Copied MySql repo" 
 
-dnf install mysql-community-server -y
+dnf install mysql-community-server -y &>> $LOG_FILE
 
 VALLIDATE $? "Installing mysql server"
 
-systemctl enable mysqld
+systemctl enable mysqld &>> $LOG_FILE
 
 VALLIDATE $? "Enable mysql"
 
-systemctl start mysqld
+systemctl start mysqld &>> $LOG_FILE
 
 VALLIDATE $? "Start mysql"
 
-mysql_secure_installation --set-root-pass RoboShop@1
+mysql_secure_installation --set-root-pass RoboShop@1 &>> $LOG_FILE
 
 VALLIDATE $? "Setting MySql root Password"
 
-mysql -uroot -pRoboShop@1
+mysql -uroot -pRoboShop@1 &>> $LOG_FILE
 

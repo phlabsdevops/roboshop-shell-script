@@ -42,30 +42,55 @@ fi
 
 mkdir -p /app
 
-curl -L -o /tmp/shipping.zip https://roboshop-builds.s3.amazonaws.com/shipping.zip
+VALLIDATE $? "Creating app directory"   
+
+curl -L -o /tmp/shipping.zip https://roboshop-builds.s3.amazonaws.com/shipping.zip &>> $LOG_FILE
+
+VALLIDATE $? "Installing Shipping"   
 
 cd /app
 
-unzip -o /tmp/shipping.zip
+VALLIDATE $? "Moving to app directory"   
 
-cd /app
+unzip -o /tmp/shipping.zip &>> $LOG_FILE
 
-mvn clean package
+VALLIDATE $? "Unzipping shipping"   
+   
+mvn clean package &>> $LOG_FILE
 
-mv target/shipping-1.0.jar shipping.jar
+VALLIDATE $? "Installing Dependencies"   
+
+mv target/shipping-1.0.jar shipping.jar &>> $LOG_FILE
+
+VALLIDATE $? "Renaming Jar File"   
 
 cp /home/centos/roboshop-shell-script/shipping.service /etc/systemd/system/shipping .service &>> $LOG_FILE
 
-systemctl daemon-reload
+VALLIDATE $? "Copying Shipping service"   
 
-systemctl enable shipping 
+systemctl daemon-reload &>> $LOG_FILE
 
-systemctl start shipping
+VALLIDATE $? "Daemon Reload"   
 
-dnf install mysql -y
+systemctl enable shipping  &>> $LOG_FILE
 
-mysql -h mysql.phlabsdevops.online -uroot -pRoboShop@1 < /app/schema/shipping.sql 
+VALLIDATE $? "Enabling shipping"   
 
-systemctl restart shipping
+systemctl start shipping &>> $LOG_FILE
+
+VALLIDATE $? "Start shipping"   
+
+dnf install mysql -y &>> $LOG_FILE
+
+VALLIDATE $? "Install mysql client"   
+
+mysql -h mysql.phlabsdevops.online -uroot -pRoboShop@1 < /app/schema/shipping.sql &>> $LOG_FILE 
+
+VALLIDATE $? "Loading shipping data"   
+
+systemctl restart shipping &>> $LOG_FILE
+
+VALLIDATE $? "Restarting shipping"   
+
 
 
