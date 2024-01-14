@@ -83,7 +83,7 @@ systemctl enable catalogue &>> $LOG_FILE
 
 VALLIDATE $? "Enable Catalogue"
 
-systemctl start catalogue &>> $LOG_FILE
+systemctl restart catalogue &>> $LOG_FILE
 
 VALLIDATE $? "Start Catalogue"
 
