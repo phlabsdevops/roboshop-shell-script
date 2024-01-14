@@ -45,7 +45,8 @@ VALLIDATE $? "Installing NodeJS:18"
 
 id roboshop 
 if[ $? -ne 0 ]
-then useradd roboshop 
+then
+useradd roboshop 
 VALLIDATE $? "Creating Roboshop User"   
 else 
 echo -e "roboshop user already exists...$Y skipping $N"
