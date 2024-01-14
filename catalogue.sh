@@ -6,7 +6,7 @@ G="\e[32m"
 Y="\e[34m"
 N="\e[0m"
 
-#MONGODB_HOST=mongodb.phlabsdevops.online
+MONGODB_HOST=mongodb.phlabsdevops.online
 
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOG_FILE="/tmp/$0-$TIMESTAMP.log"
@@ -95,13 +95,6 @@ dnf install mongodb-org-shell -y &>> $LOG_FILE
 
 VALLIDATE $? "Installing mongodb client"
 
-mongo --host 172.31.41.112 </app/schema/catalogue.js &>> $LOG_FILE
+mongo --host $MONGODB_HOST </app/schema/catalogue.js &>> $LOG_FILE
 
-VALLIDATE $? "Loading Cataloguen data into MongoDB"
-
-
-
-
-
-
-
+VALLIDATE $? "Loading Catalogue data into MongoDB"
