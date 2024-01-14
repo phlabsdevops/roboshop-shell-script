@@ -44,7 +44,7 @@ dnf install nodejs -y &>> $LOG_FILE
 VALLIDATE $? "Installing NodeJS:18"  
 
 id roboshop 
-if[ $? -ne 0 ]
+if [ $? -ne 0 ]
 then
 useradd roboshop 
 VALLIDATE $? "Creating Roboshop User"   
