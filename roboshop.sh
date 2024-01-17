@@ -1,5 +1,5 @@
 #!/bin/bash
-AMI="ami-03265a0778a880afb"
+AMI="ami-0f3c7d07486cad139"
 SG_ID="sg-0c0883cad63eb869b" #replace with your SG id
 INSTANCES=("mongodb" "redis" "mysql" "user" "cart" "payment" "shipping" "dispatch" "rabbitmq" "catalogue" "web")
 ZONE_ID=Z04924361LJBMTTD4CTY6
@@ -13,7 +13,7 @@ INSTANCE_TYPE="t3.small"
 else
 INSTANCE_TYPE="t2.micro"
 fi
-IP_ADDRESS=$(aws ec2 run-instances --image-id ami-03265a0778a880afb --count 1 --instance-type $INSTANCE_TYPE --security-group-ids sg-0c0883cad63eb869b --tag-specifications "ResourceType=instance,
+IP_ADDRESS=$(aws ec2 run-instances --image-id ami-0f3c7d07486cad139 --count 1 --instance-type $INSTANCE_TYPE --security-group-ids sg-0c0883cad63eb869b --tag-specifications "ResourceType=instance,
 Tags=[{Key=Name,Value=$i}]" --query 'Instances[0].PrivateIpAddress' --output text)
 echo "$i:$IP_ADDRESS"
 
